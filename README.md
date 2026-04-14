@@ -40,19 +40,18 @@
 3) `Assign the following subscription`에서 **Gemini Enterprise 라이선스** 선택 후 Submit 클릭
 
 ### 3. Gemini Enterprise App & Data Store(GCS) 구성
-1. Gemini Enterprise 신규 앱 생성
+1) Gemini Enterprise 신규 앱 생성
   * `Gemini Enterprise` > `Apps` 메뉴에서 **+ Create app** 클릭
   * `App name` 입력하고 `location` 선택 후 `Create` 클릭
   * 생성된 앱의 **Engine ID** 메모
-2. Cloud Storage Data Store 구성
+2) Cloud Storage Data Store 구성
   * `Gemini Enterprise` > `Data stores` 메뉴에서 **+ Create data store** 클릭
   * `Source` 화면에서 **Cloud Storage** Select
   * `Data` 화면의 `Unstructured Data Import(Document Search & RAG)`에서 **Documents** 선택
   * `Select a folder or a file you want to import`에서 `Folder` 선택 후 `Browser` 클릭하여 원하는 GCS Bucket 및 Folder 선택하고 Select 클릭
   * `Data` 화면으로 돌아와서 Continue 클릭
   * `Configuration` 화면에서 적절한 `Location` 선택하고 `Data Store Name` 입력한 후 Create 클릭
-  * GCS Bucket에 저장된 Data들에 대한 Parsing 작업을 수동으로 하기 위해 생성된 Data Store 이름 클릭 후 이동한 화면의 우측 상단에 있는 **Manual Synce** 클릭
-3. 
+  * GCS Bucket에 저장된 Data들에 대한 Parsing 작업을 수동으로 하기 위해 생성된 Data Store 이름 클릭 후 이동한 화면의 우측 상단에 있는 **Manual Synce** 클릭 
 
 ---
 

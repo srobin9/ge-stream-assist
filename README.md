@@ -1,5 +1,5 @@
 # Gemini Enterprise RAG (StreamAssist) Demo
-이 프로젝트는 Google Cloud의 **Gemini Enterprise (Vertex AI Agent Builder)**를 활용하여, Cloud Storage(GCS)에 저장된 사내 문서를 기반으로 실시간 스트리밍 질의응답(RAG)을 수행하는 Python 데모입니다.
+이 프로젝트는 Google Cloud의 **Gemini Enterprise (Vertex AI Agent Builder)** 를 활용하여, Cloud Storage(GCS)에 저장된 사내 문서를 기반으로 실시간 스트리밍 질의응답(RAG)을 수행하는 Python 데모입니다.
 특히, 종량제(Standard)가 아닌 **Enterprise Edition (시트 기반 과금)** 환경에서 서비스 계정(Service Account) 가장(Impersonation)을 통해 안전하게 API를 호출하는 엔터프라이즈급 인증 아키텍처를 구현했습니다.
 
 ## 🏗 아키텍처 핵심

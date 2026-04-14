@@ -35,9 +35,9 @@
   * GCS Project의 Owner 계정이더라도 서비스 계정의 임시 토큰 발행 권한은 없기 때문에 Owner 계정도 해당 서비스 계정에 대한 `Service Account Token Creator (서비스 계정 토큰 생성자)` 권한 부여 필요
 
 ### 2. GE User로 생성한 SA 추가 
-1) GCP 콘솔에서 `Gemini Enterprise` > `Manage users`메뉴로 이동한 후 
-2) 에서 에디션을 **Enterprise**로 변경합니다.
-3) `Manage Users` 메뉴에서 API를 호출할 **서비스 계정(Service Account)**을 사용자로 추가합니다.
+1) GCP 콘솔에서 `Gemini Enterprise` > `Manage users`메뉴로 이동한 후 **Add user** 클릭
+2) streamAssistAPI를 호출할 **서비스 계정(Service Account)**의 메일 주소를 `Users email addresses`에 추가
+3) `Assign the following subscription`에서 **Gemini Enterprise 라이선스** 선택 후 Submit 클릭
 
 ### 3. Data Store 구성
 1. `Gemini Enterprise > Apps` 메뉴에서 신규 앱 생성

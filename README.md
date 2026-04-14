@@ -22,12 +22,12 @@
 ## ⚙️ 인프라 및 권한 설정 가이드
 
 ### 1. SA 생성 및 IAM 권한 설정
-1. Python code를 실행할 **Service Account 생성**
+1) Python code를 실행할 **Service Account 생성**
   * GCS 콘솔에서 IAM & Admin > Service Accounts 메뉴로 이동
   * 콘솔 화면 상단의 **+ Create service account** 클릭
   * Create service account 화면에서 **Service Account name** 입력 후 Create and continue 클릭
   * Permissions 화면에서 **Discovery Engine Admin**과 **Storage Object Viewer**의 2개 Role을 추가 후 Save 클릭  
-2.  **Impersonnate Service Account** 설정
+2) **Impersonnate Service Account** 설정
   * Python code를 실행하는 **실제 개발자 계정 (개인 이메일)** 이 서비스 계정의 권한을 위임받기 위해서는 해당 서비스 계정에 대한 `Service Account Token Creator (서비스 계정 토큰 생성자)` 권한 부여 필요
   * GCS 콘솔에서 생성된 SA를 클릭한 후 **Principals with access** 탭으로 이동한 후 **+ Grant access** 클릭
   * New principals에 **개발자 이메일** 입력
@@ -35,8 +35,9 @@
   * GCS Project의 Owner 계정이더라도 서비스 계정의 임시 토큰 발행 권한은 없기 때문에 Owner 계정도 해당 서비스 계정에 대한 `Service Account Token Creator (서비스 계정 토큰 생성자)` 권한 부여 필요
 
 ### 2. GE User로 생성한 SA 추가 
-1. GCP 콘솔의 `Gemini Enterprise` 메뉴에서 에디션을 **Enterprise**로 변경합니다.
-2. `Manage Users` 메뉴에서 API를 호출할 **서비스 계정(Service Account)**을 사용자로 추가합니다.
+1) GCP 콘솔에서 `Gemini Enterprise` > `Manage users`메뉴로 이동한 후 
+2) 에서 에디션을 **Enterprise**로 변경합니다.
+3) `Manage Users` 메뉴에서 API를 호출할 **서비스 계정(Service Account)**을 사용자로 추가합니다.
 
 ### 3. Data Store 구성
 1. `Gemini Enterprise > Apps` 메뉴에서 신규 앱 생성

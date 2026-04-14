@@ -55,7 +55,7 @@
 
 ---
 
-## 💻 설치 및 실행 방법
+## 💻 streamAssist API 테스트를 위한 Python code 실행 방법
 
 ### 1. 라이브러리 설치
 최신 버전의 Discovery Engine 라이브러리가 필요합니다.
@@ -78,7 +78,7 @@ export GCP_ENGINE_ID="your-engine-id"
 
 ### 4. 스크립트 실행
 ```bash
-python demo_ge_enterprise.py "GCS 버킷에 있는 한양 성곽길 지도에 대해 요약해줘."
+python demo_ge_enterprise.py "GCS 버킷에 있는 XXX 파일 내용을 요약 정리해줘."
 ```
 
 ## 📊 모니터링 (Audit Logging)

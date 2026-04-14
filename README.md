@@ -1,8 +1,5 @@
-```markdown
 # Gemini Enterprise RAG (StreamAssist) Demo
-
 이 프로젝트는 Google Cloud의 **Gemini Enterprise (Vertex AI Agent Builder)**를 활용하여, Cloud Storage(GCS)에 저장된 사내 문서를 기반으로 실시간 스트리밍 질의응답(RAG)을 수행하는 Python 데모입니다.
-
 특히, 종량제(Standard)가 아닌 **Enterprise Edition (시트 기반 과금)** 환경에서 서비스 계정(Service Account) 가장(Impersonation)을 통해 안전하게 API를 호출하는 엔터프라이즈급 인증 아키텍처를 구현했습니다.
 
 ## 🏗 아키텍처 핵심
@@ -22,15 +19,24 @@
 
 ---
 
-## ⚙️ 인프라 및 권한 설정 가이드 (A to Z)
+## ⚙️ 인프라 및 권한 설정 가이드
 
-### 1. 에디션 및 시트(Seat) 할당
+### 1. SA 생성 및 IAM 권한 설정
+1. Python code를 실행할 **Service Account 생성**
+  * GCS 콘솔에서 IAM & Admin > Service Accounts 메뉴로 이동
+  * 콘솔 화면 상단의 **+ Create service account** 클릭
+  * Create service account 화면에서 **Service Account name** 입력 후 Create and continue 클릭
+  * Permissions 화면에서 **Discovery Engine Admin**과 **Storage Object Viewer**의 2개 Role을 추가 후 Save 클릭  
+2.  **Impersonnate Service Account** 설정
+  * Python code를 실행하는 **실제 개발자 계정 (개인 이메일)** 이 서비스 계정의 권한을 위임받기 위해서는 해당 서비스 계정에 대한 `Service Account Token Creator (서비스 계정 토큰 생성자)` 권한 부여 필요
+  * GCS 콘솔에서 생성된 SA를 클릭한 후 **Principals with access** 탭으로 이동한 후 **+ Grant access** 클릭
+  * New principals에 **개발자 이메일** 입력
+  * Role에 **Service Account Token Creator** 입력 후 Save 클릭
+  * GCS Project의 Owner 계정이더라도 서비스 계정의 임시 토큰 발행 권한은 없기 때문에 Owner 계정도 해당 서비스 계정에 대한 `Service Account Token Creator (서비스 계정 토큰 생성자)` 권한 부여 필요
+
+### 2. GE User로 생성한 SA 추가 
 1. GCP 콘솔의 `Gemini Enterprise` 메뉴에서 에디션을 **Enterprise**로 변경합니다.
 2. `Manage Users` 메뉴에서 API를 호출할 **서비스 계정(Service Account)**을 사용자로 추가합니다.
-
-### 2. IAM 권한 설정
-* **Discovery Engine Service Agent:** GCS 버킷에 대한 `Storage Object Viewer` 권한 부여 (인덱싱 용도)
-* **실제 개발자 계정 (개인 이메일):** 서비스 계정의 권한을 위임받기 위해 해당 서비스 계정에 대한 `Service Account Token Creator (서비스 계정 토큰 생성자)` 권한 부여
 
 ### 3. Data Store 구성
 1. `Gemini Enterprise > Apps` 메뉴에서 신규 앱 생성
@@ -73,55 +79,3 @@ protoPayload.methodName="google.cloud.discoveryengine.v1.AssistantService.Stream
 ```
 *로그 내 `logName`이 `gemini_enterprise_user_activity`로 기록되며, `userIamPrincipal`에 서비스 계정이 기록됨을 확인합니다.*
 ```
-
----
-
-## 2. Cloud Shell에서 GitHub로 코드 올리기
-
-현재 작업 중인 구글 클라우드의 Activated Shell(Cloud Shell)에서 바로 GitHub 레포지토리로 코드를 푸시하는 방법입니다.
-
-### 1단계: GitHub에서 원격 저장소(Repository) 생성
-1. GitHub에 로그인하여 새로운 Repository를 생성합니다. (예: `gemini-enterprise-demo`)
-2. 생성 후 나타나는 **Repository URL**을 복사해 둡니다. (예: `[https://github.com/사용자명/gemini-enterprise-demo.git](https://github.com/사용자명/gemini-enterprise-demo.git)`)
-
-### 2단계: GitHub 개인 액세스 토큰(PAT) 발급
-비밀번호 대신 사용할 안전한 토큰이 필요합니다.
-1. GitHub 우측 상단 프로필 > **[Settings]** 클릭
-2. 좌측 하단 **[Developer settings]** > **[Personal access tokens]** > **[Tokens (classic)]** 클릭
-3. **[Generate new token (classic)]** 클릭 후, `repo` 체크박스(저장소 접근 권한)를 체크하고 생성합니다.
-4. **생성된 토큰 문자열을 반드시 복사해 둡니다.** (다시 볼 수 없습니다.)
-
-### 3단계: Cloud Shell에서 Git 초기화 및 커밋
-Cloud Shell 터미널로 돌아와서 코드 파일들이 있는 디렉토리로 이동한 후 아래 명령어를 순서대로 실행합니다.
-
-```bash
-# 1. Git 초기화
-git init
-
-# 2. 사용자 정보 설정 (최초 1회)
-git config --global user.name "본인의 GitHub 닉네임"
-git config --global user.email "본인의 GitHub 이메일"
-
-# 3. 파일 추가 및 커밋 (README.md, 파이썬 파일 등 모두 포함)
-git add .
-git commit -m "Initial commit: Gemini Enterprise RAG demo"
-```
-
-### 4단계: GitHub와 연결 및 푸시
-```bash
-# 1. 원격 저장소 연결 (1단계에서 복사한 URL 사용)
-git remote add origin https://github.com/사용자명/gemini-enterprise-demo.git
-
-# 2. 메인 브랜치 이름 변경 (보통 master에서 main으로 변경)
-git branch -M main
-
-# 3. GitHub로 코드 푸시
-git push -u origin main
-```
-
-**⚠️ 로그인 프롬프트 주의사항:**
-마지막 `git push` 명령어를 치면 **Username**과 **Password**를 물어봅니다.
-*   **Username:** 본인의 GitHub 아이디
-*   **Password:** 본인의 GitHub 비밀번호가 아니라, **2단계에서 복사해 둔 '개인 액세스 토큰(PAT)' 문자열**을 붙여넣고 엔터를 치셔야 합니다. (보안상 터미널 화면에 문자가 입력되는 것이 보이지 않으니, 붙여넣기 후 바로 엔터를 누르세요.)
-
-여기까지 완료하시면 파트너사에게 GitHub 링크 하나만 전달하여 깔끔하게 데모를 공유하실 수 있습니다! 더 필요한 부분이 있으시면 언제든 말씀해주세요.

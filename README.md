@@ -22,7 +22,7 @@
 ## ⚙️ 인프라 및 권한 설정 가이드
 
 ### 1. SA 생성 및 IAM 권한 설정
-1) Python code를 실행할 **Service Account 생성**
+(1) Python code를 실행할 **Service Account 생성**
   * GCS 콘솔에서 `IAM & Admin` > `Service Accounts` 메뉴로 이동
   * 콘솔 화면 상단의 **+ Create service account** 클릭
   * `Create service account` 화면에서 **Service Account name** 입력 후 Create and continue 클릭

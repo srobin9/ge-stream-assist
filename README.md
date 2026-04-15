@@ -88,4 +88,3 @@ jsonPayload.logMetadata.serviceName="google.cloud.discoveryengine.v1main.Assista
 jsonPayload.logMetadata.methodName="StreamAssist"
 ```
 *로그 내 `logName`이 `gemini_enterprise_user_activity`로 기록되며, `userIamPrincipal`에 서비스 계정이 기록됨을 확인합니다.*
-```
